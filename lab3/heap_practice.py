@@ -8,7 +8,7 @@ def max_heapify_down(arr, i, heap_size):
   0 <= i < heap_size and i's child subtrees are already max-heaps.
   Indices heap_size onward are outside the active heap and must not change.
   """
-  # TODO 1.3A: Follow the max-heap sift-down pseudocode. Check bounds before indexing.
+  # 1.3A: Follow the max-heap sift-down pseudocode. Check bounds before indexing.
   while True:
     left = 2 * i + 1
     right = 2 * i + 2
@@ -40,8 +40,11 @@ def heap_sort(arr):
   """Sort arr in ascending order in place and return the same list object."""
   build_max_heap(arr)
   for end in range(len(arr) - 1, 0, -1):
-    # TODO 1.3B: Swap root with end, then repair the reduced active heap of size end.
-    raise NotImplementedError("Complete the heap_sort loop")
+    # 1.3B: Swap root with end, then repair the reduced active heap of size end.
+    temp = arr[0]
+    arr[0] = arr[end]
+    arr[end] = temp
+    max_heapify_down(arr, 0, end)
   return arr
 
 
