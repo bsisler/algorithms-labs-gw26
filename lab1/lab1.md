@@ -12,11 +12,11 @@ The Fibonacci sequence is a sequence of numbers where:
 
 ```
 TODO: Answer the following questions:
-fibonacci(5) = 
-fibonacci(6) = 
-fibonacci(7) = 
-fibonacci(8) = 
-fibonacci(9) = 
+fibonacci(5) = fibonacci(4) + fibonacci(3) = 3 + 2 = 5
+fibonacci(6) = fibonacci(5) + fibonacci(4) = 5 + 3 = 8
+fibonacci(7) = fibonacci(6) + fibonacci(5) = 8 + 5 = 13
+fibonacci(8) = fibonacci(7) + fibonacci(6) = 13 + 8 = 21
+fibonacci(9) = fibonacci(8) + fibonacci(7) = 21 + 13 = 34
 ```
 
 ## Basic implementation
@@ -39,9 +39,9 @@ The code version also tells you how much time does it take to complete each calc
 ```
 TODO:
 1. Explain what the code above is doing.
-A: 
+A: The code uses recursion to determine the fibonacci. It starts by checking the base cases, if the number entered is 0 or 1. Then it runs the function again on n - 1 and n - 2 to determine the previous fibonacci sequences, until it reaches the base case and works back up to n.
 2. What happens if we remove the "if ... return ..." and only keep the last line?
-A: 
+A: The code will run forever and keep calling the function over and over again never terminating.
 3. What is fibonacci(20)? how much time did it take to calculate that?
 A: 
 4. What is fibonacci(30)? how much time did it take to calculate that?

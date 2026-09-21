@@ -71,9 +71,9 @@ def bubble_sort(arr):
 > | | | $9 > 1$ | SWAP | `[2, 5, 1, 9, 5, 6]` | |
 > | | | $9 > 5$ | SWAP | `[2, 5, 1, 5, 9, 6]` | |
 > | | | $9 > 6$ | SWAP | `[2, 5, 1, 5, 6, 9]` | `[9]` |
-> | **2 (TODO)** | $j=0 \dots 3$ | $arr[0]$ vs $arr[1]$: | | | |
-> | | | $arr[1]$ vs $arr[2]$: | | | |
-> | | | $arr[2]$ vs $arr[3]$: | | | |
+> | **2 (TODO)** | $j=0 \dots 3$ | $arr[0]$ vs $arr[1]$: 2 < 5 | KEEP | `[2, 5, 9, 1, 5, 6]` | |
+> | | | $arr[1]$ vs $arr[2]$: 5 < 9 | KEEP | `[2, 5, 9, 1, 5, 6]` | |
+> | | | $arr[2]$ vs $arr[3]$: 9 < 1| SWAP | | |
 > | | | $arr[3]$ vs $arr[4]$: | | `[                      ]` | `[       ]` |
 > | **3 (TODO)** | $j=0 \dots 2$ | $arr[0]$ vs $arr[1]$: | | | |
 > | | | $arr[1]$ vs $arr[2]$: | | | |
@@ -147,19 +147,19 @@ A sorting algorithm is **stable** if elements with equal keys appear in the outp
 > TODO 1.3A (Inversions & Shifts):
 > List all inversions (pairs of indices (i, j) where i < j and arr[i] > arr[j])
 > in the initial array [7, 3, 5, 8, 2]:
-> - Inversions: 
-> - Total number of inversions: 
-> - Does this total exactly equal the number of shifts you counted in Task 1.2? (Yes/No): 
+> - Inversions: (7, 3) and (8, 2)
+> - Total number of inversions: 2
+> - Does this total exactly equal the number of shifts you counted in Task 1.2? (Yes/No): Yes
 > 
 > TODO 1.3B (Early Stopping Flag):
 > Why does Bubble Sort require an explicit boolean flag (`swapped`) to achieve
 > O(N) best-case time on sorted data, whereas Insertion Sort naturally achieves O(N) without any flag?
-> A: 
+> A: Bubble Sort will continue to check an array n times even if no more swaps are needed, whereas Insertion Sort only iterates through the array once. So in the best case where the array is sorted Bubble Sort will need a flag in order to stop after the first iteration, but Insertion Sort will have already reached the end of the algorithm.
 > 
 > TODO 1.3C (Stability):
 > If a programmer changes line 33 of Bubble Sort to `if arr[j] >= arr[j + 1]:`,
 > does the algorithm still produce a sorted array? Does it remain stable? Explain why or why not.
-> A: 
+> A: It still produces a sorted array but it will not remain stable since it will be swapping items with the same value instead of letting them maintain their relative positioning.
 > ```
 
 ---
@@ -213,18 +213,18 @@ At the beginning of each iteration of the `for j` loop, the array is partitioned
 > |---|---|---|---|---|---|---|---|
 > | **Init** | - | - | Initialize $i = low - 1 = -1$ | $-1$ | `[2, 8, 7, 1, 3, 5, 6, 4]` | `[]` | `[]` |
 > | **0 (Ex)** | `2` | Yes ($2 \le 4$) | $i \leftarrow 0$, swap $arr[0]$ with $arr[0]$ | 0 | `[2, 8, 7, 1, 3, 5, 6, 4]` | `[2]` | `[]` |
-> | **1 (TODO)** | `8` | | | | `[                       ]` | | |
-> | **2 (TODO)** | `7` | | | | `[                       ]` | | |
-> | **3 (TODO)** | `1` | | | | `[                       ]` | | |
-> | **4 (TODO)** | `3` | | | | `[                       ]` | | |
-> | **5 (TODO)** | `5` | | | | `[                       ]` | | |
-> | **6 (TODO)** | `6` | | | | `[                       ]` | | |
-> | **End (TODO)**| - | - | Swap $arr[i+1]$ with $arr[high]$: | | `[                       ]` | **Final Pivot Index:** | |
+> | **1 (TODO)** | `8` | No ($8 \gt 4$) | Advance | 1 | `[2, 8, 7, 1, 3, 5, 6, 4]` | `[2]` | `[8]` |
+> | **2 (TODO)** | `7` | No ($7 \gt 4$) | Advance | 2 | `[2, 8, 7, 1, 3, 5, 6, 4]` | `[2]`| `[8, 7]` |
+> | **3 (TODO)** | `1` | Yes ($1 \le 4$)| | 3| `[                       ]` | `[2, 1]` | `[8, 7]` |
+> | **4 (TODO)** | `3` | Yes ($3 \le 4$)| | 4| `[                       ]` | `[2, 1, 3]` | `[8, 7]`|
+> | **5 (TODO)** | `5` | No ($5 \gt 4$)| | 5| `[                       ]` | `[2, 1, 3]`| `[8, 7, 5]`|
+> | **6 (TODO)** | `6` | No ($6 \gt 4$)| | No | `[                       ]` | `[2, 1, 3]`| `[8, 7, 5, 6]`|
+> | **End (TODO)**| - | - | Swap $arr[i+1]$ with $arr[high]$: | | `[2, 1, 3, 4, 8, 7, 5, 6]` | **Final Pivot Index:** | 3|
 > 
 > ```text
-> Resulting Left Subarray (<= 4): 
+> Resulting Left Subarray (<= 4): [2, 1, 3]
 > Resulting Pivot Index and Value: 
-> Resulting Right Subarray (> 4): 
+> Resulting Right Subarray (> 4): [8, 7, 5, 6]
 > ```
 > *(Tip: You can verify your trace by running `python lomuto_partition.py`)*
 
