@@ -177,8 +177,8 @@ worked.
 | Target key | Deletion case | Successor key | Node spliced / replaced | In-order traversal afterward |
 |---|---|---|---|---|
 | 10 | 0 children (leaf) | None | 10 | `[20, 30, 40, 50, 60, 70]` |
-| 20 | TODO | TODO | TODO | TODO |
-| 40 | TODO | TODO | TODO | TODO |
+| 20 | 1 Child | 30 | 30 | `[30, 40, 50, 60, 70]` |
+| 40 | 2 Children (root) | 50 | 50 | `[30, 50, 60, 70]` |
 
 ### 1.3 Implementation
 
