@@ -229,8 +229,8 @@ visited, in order, and the total number of key comparisons.
 
 | Tree | Search path to key `7` | Total comparisons |
 |---|---|---|
-| Degenerate BST | TODO | TODO |
-| Balanced BST | TODO | TODO |
+| Degenerate BST | `[1, 2, 3, 4, 5, 6, 7]` | 7 |
+| Balanced BST | `[1, 5, 7]` | 3 |
 
 The test suite in `lab_checks.py` demonstrates the difference empirically by
 searching for key `999` among 1,000 keys: 1,000 node comparisons on a
