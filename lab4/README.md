@@ -154,11 +154,11 @@ traversal of the tree after insertion. The first two rows are worked.
 |---|---|---|---|
 | 40 | None (Root) | Root | `[40]` |
 | 20 | 40 | Left | `[20, 40]` |
-| 60 | TODO | TODO | TODO |
-| 10 | TODO | TODO | TODO |
-| 30 | TODO | TODO | TODO |
-| 50 | TODO | TODO | TODO |
-| 70 | TODO | TODO | TODO |
+| 60 | 40 | Right | `[20, 40, 60]` |
+| 10 | 20 | Left | `[10, 20, 40, 60]` |
+| 30 | 20 | Right | `[10, 20, 30, 40, 60]` |
+| 50 | 60 | Left | `[10, 20, 30, 40, 50, 60]` |
+| 70 | 60 | Right | `[10, 20, 30, 40, 50, 60, 70]` |
 
 ### 1.2 Trace: Deletion
 
