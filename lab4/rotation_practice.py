@@ -163,18 +163,85 @@ def rotate_right_left(tree, z):
   # 3.2E: Call rotate_right on z.right, then rotate_left on z.
   rotate_right(tree, z.right)
   rotate_left(tree, z)
+  
+def bst_insert(tree, key):
+  """Insert key into tree with parent pointers; return the new Node.
+
+  Preconditions: key is comparable and distinct from existing keys in tree.
+  Postconditions: tree satisfies BST search invariant; new node has correct parent.
+  """
+  # 1.3A: Traverse downward to find parent slot, attach Node(key, parent=...), and update tree.root if empty.
+  z = Node(key)
+  parent = None
+  current = tree.root
+  while current != None:
+    parent = current
+    if key < current.key:
+      current = current.left
+    elif key > current.key:
+      current = current.right
+    else:
+      return current  # duplicate key
+  z.parent = parent
+  if parent == None:
+    tree.root = z
+  elif key < parent.key:
+    parent.left = z
+  else:
+    parent.right = z
+  return z
+  
+def avl_rebalance(tree, node, key):
+  update_height(node)
+  bf = balance_factor(node)
+  if bf > 1:
+    if key < node.left.key:
+      rotate_left(tree, node)        # LL
+    else:
+      rotate_left_right(tree, node)   # LR
+    return True
+  if bf < -1:
+    if key > node.right.key:
+      rotate_left(tree, node)         # RR
+    else:
+      rotate_right_left(tree, node)   # RL
+    return True
+  return False
 
 
 def avl_insert_iterative(tree, key):
   """Insert a key iteratively, restore AVL balance, and return its Node."""
-  # TODO 4.1A: BST-insert with a loop, then walk parent pointers upward updating heights and rotating at the first unbalanced node.
-  raise NotImplementedError("Complete avl_insert_iterative")
+  # 4.1A: BST-insert with a loop, then walk parent pointers upward updating heights and rotating at the first unbalanced node.
+  inserted = bst_insert(tree, key)    # return early on a duplicate key
+  current = inserted.parent
+  while current != None:
+    if avl_rebalance(tree, current, key):
+      break
+    current = current.parent
+  return inserted
+
 
 
 def avl_insert_recursive(tree, key):
   """Insert a key recursively, restore AVL balance, and return its Node."""
-  # TODO 4.1B: Recurse down to an empty slot; on the way back up, update heights, rotate if unbalanced, and return the subtree root.
-  raise NotImplementedError("Complete avl_insert_recursive")
+  # 4.1B: Recurse down to an empty slot; on the way back up, update heights, rotate if unbalanced, and return the subtree root.
+  def insert_subtree(node, parent):
+    if node == None:
+      inserted = Node(key, parent)
+      return inserted
+    if key < node.key:
+      node.left = insert_subtree(node.left, node)
+    elif key > node.key:
+      node.right = insert_subtree(node.right, node)
+    else:
+      inserted = node
+      return node                  # duplicate key
+    if avl_rebalance(tree, node, key):
+      return node.parent           # the node that rotated into this position
+    return node
+  tree.root = insert_subtree(tree.root, None)
+  tree.root.parent = None
+  return inserted
 
 
 if __name__ == "__main__":
