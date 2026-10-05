@@ -28,8 +28,8 @@ at different ancestors.
 - [x] Part 1: AVL deletion strategy, rebalancing pass conceptual understanding
 - [x] Part 2: Deletion traces (single rotation, double rotation, multiple rotations)
 - [x] Part 3: Implement `avl_delete` with post-deletion rebalancing
-- [ ] Part 4: Analyze and compare insertion vs. deletion cost
-- [ ] Run the practice file and resolve all failed checks.
+- [x] Part 4: Analyze and compare insertion vs. deletion cost
+- [x] Run the practice file and resolve all failed checks.
 
 Keep the function names and parameters unchanged. The provided checks inspect
 pointer identities, in-order traversals, parent references, node heights, and
@@ -252,8 +252,14 @@ measuring the number of rotations triggered by each operation.
 
 1. Why can a single deletion trigger multiple rotations at different ancestors,
    whereas a single insertion triggers at most one rotation?
+  
+  1. A single insertion triggers at most one rotation because when adding a node it will always end up added to the bottom of the tree, whereas with deletion the node can be deleted from anywhere in the tree and cause the need for rotations to occur up the whole tree.
 2. What property of rotations ensures that insertion stops after one fix?
+
+  2. The balance factor.
 3. Does a deletion ever need to rebalance higher than the root? Explain.
+
+  3. A deletion does not need to rebalance higher than the root because the root is the highest parent node, and the rebalancing continues up the parent nodes checking the balance factor until the next parent is balanced.
 
 ### 4.2 Short answer: Real-world implications
 
@@ -261,8 +267,12 @@ measuring the number of rotations triggered by each operation.
 in an AVL tree (e.g., a priority queue or cache).
 
 1. Based on the rotation cost, would you expect insertions or deletions to be slower?
+
+  1. I would expect deletions to be slower since they can require rotations up the entire tree whereas insertion only needs at most one.
 2. If deletions become a bottleneck, what alternative data structure (from this course)
    might handle deletions more efficiently?
+
+   2. A heap may be able to handle deletions more efficiently than the AVL tree.
 
 ---
 
