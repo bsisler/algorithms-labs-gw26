@@ -25,8 +25,8 @@ at different ancestors.
 | `avl_practice.py` | Implement `avl_delete` and complete the rebalancing loop; rotation functions from Lab 4 are provided |
 | `lab_checks.py` | Provided checks and profiling demonstration; do not edit |
 
-- [ ] Part 1: AVL deletion strategy, rebalancing pass conceptual understanding
-- [ ] Part 2: Deletion traces (single rotation, double rotation, multiple rotations)
+- [x] Part 1: AVL deletion strategy, rebalancing pass conceptual understanding
+- [x] Part 2: Deletion traces (single rotation, double rotation, multiple rotations)
 - [x] Part 3: Implement `avl_delete` with post-deletion rebalancing
 - [ ] Part 4: Analyze and compare insertion vs. deletion cost
 - [ ] Run the practice file and resolve all failed checks.
@@ -145,9 +145,9 @@ Start with this AVL tree:
 
 | Step | Action | Tree state | Unbalanced node | BF | Signature | Rotation | Notes |
 |---|---|---|---|---|---|---|---|
-| 1 | Delete 40 | 40 is removed (leaf) | - | - | - | - | Tree now has 30 root, 20 left, nothing right |
-| 2 | Rebalance from 30 | TODO | TODO | TODO | TODO | TODO | TODO |
-| 3 | After rotation | TODO | TODO | TODO | - | - | Final state |
+| 1 | Delete 40 | 40 is removed (leaf) | - | - | - | - | Tree now has 30 root, 20 left, 10 left, nothing right |
+| 2 | Rebalance from 30 | Tree has one path, 30 -> 20 -> 10 | 30 | 2 | LL | Right | Tree was like a list not a tree due to the imbalance |
+| 3 | After rotation | Root becomes 20 with two children 10 and 30 | - | - | - | - | Final state |
 
 ### 2.2 Trace: Double rotation after deletion
 
@@ -169,11 +169,12 @@ Start with this AVL tree:
 4. Identify the violation signature. Is node 10 left-heavy or right-heavy?
 5. Which rotation(s) are needed (single or double)?
 6. Draw the final tree and record the in-order traversal.
+[10, 20, 30]
 
 | Step | Action | Current node | BF before | Signature | Rotation applied | BF after |
 |---|---|---|---|---|---|---|
-| 1 | Delete 40 | 30 | TODO | TODO | TODO | TODO |
-| 2 | Verify final | - | - | - | - | - |
+| 1 | Delete 40 | 30 | 2 | LR | Roatate left then rotate right | 0 |
+| 2 | Verify final | 10 | -1 | - | - | 0 |
 
 ### 2.3 Trace: Two-child deletion with rebalancing
 
@@ -200,8 +201,8 @@ Trace the rebalancing:
 
 | Step | Current node | BF | Imbalanced? | Violation | Rotation applied |
 |---|---|---|---|---|---|
-| 1 | (after replacing 30 with 40) | TODO | TODO | TODO | TODO |
-| 2 | (if needed, continue up) | TODO | TODO | TODO | TODO |
+| 1 | (after replacing 30 with 40) | 2 | Yes | LL | Right |
+| 2 | [10, 20, 40, 50, 70, 80] Parent = 50 |  0| No | - | - |
 
 ---
 
