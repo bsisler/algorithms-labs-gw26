@@ -27,7 +27,7 @@ at different ancestors.
 
 - [ ] Part 1: AVL deletion strategy, rebalancing pass conceptual understanding
 - [ ] Part 2: Deletion traces (single rotation, double rotation, multiple rotations)
-- [ ] Part 3: Implement `avl_delete` with post-deletion rebalancing
+- [x] Part 3: Implement `avl_delete` with post-deletion rebalancing
 - [ ] Part 4: Analyze and compare insertion vs. deletion cost
 - [ ] Run the practice file and resolve all failed checks.
 
@@ -98,15 +98,21 @@ have a different height, creating imbalances higher up.
 
 **TODO 1.1:** Briefly recall the three deletion cases from Lab 3/4:
 - What happens when the target node has 0 children?
+  - The target node can be deleted
 - What happens when the target node has 1 child?
+  - Swap the target node and the child then delete the target node
 - What happens when the target node has 2 children, and why is the in-order successor used?
 
+  - Swap the target node with the leftmost child on the right (smallest of the larger children). This guarentees that the child is larger than the target nodes original left children and also smaller than the target nodes original right children, keeping the tree balanced
 ### 1.2 Short answer: Height change after deletion
 
 **TODO 1.2:** When you delete a leaf node from an AVL tree:
 - Does the leaf's parent's height change? By how much?
+  - The height can decrease by 1 if it does not have another child
 - Can the grandparent's height change?
+  - The grandparents height can change if the parents height decreases and the grandparent does not have other children
 - Can the imbalance propagate to the root?
+  - Yes the imbalance can go all the way up to the root if one side becomes shorter than the other side but the root does not change height, impacting the balance factor
 
 ---
 
