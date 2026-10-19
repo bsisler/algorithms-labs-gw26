@@ -137,6 +137,8 @@ python3 hash_functions_practice.py
 Table 1.1. Why did all four keys collide into slot `3` when $m = 8$, and why did
 choosing a prime table size ($m = 7$) spread them into different slots?
 
+With m = 8 all four keys collided because in binary they shared the same last digits, and since 8 is a power of 2, those are the only digits that were used to calculate the slot, causing them to all collide. Whereas changing it to a prime number allowed for all of the digits in the number to be used and allowing for less collision and more spread.
+
 ---
 
 ## Part 2: Collision Resolution Strategy 1: Separate Chaining
