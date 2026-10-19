@@ -257,6 +257,8 @@ $2M = 8$, why do we have to recompute `key % new_capacity` for every key
 instead of just copying bucket `2` from the old table into bucket `2` of the new
 table?
 
+Because the bucket each key would belong to would change, since the formula to compute bucket index changed, M increasing. If all the keys were not rehashed then any future attempts to find them or update them with the new hash function would not find them.
+
 ---
 
 ## Part 3: Collision Resolution Strategy 2: Open Addressing (Linear Probing)
