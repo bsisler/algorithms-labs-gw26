@@ -28,7 +28,7 @@ pseudocode, and practice traces. The current sections cover:
 | `string_search.py` | Fill in the four implementation TODOs |
 | `lab_checks.py` | Provided automated checks; do not edit |
 
-- [ ] Part 1: Trace and implement naive search.
+- [x] Part 1: Trace and implement naive search.
 - [ ] Part 2: Trace, implement, and analyze Rabin–Karp.
 - [ ] Part 3: Trace the prefix table and matcher, implement KMP, and analyze its running time.
 
@@ -84,9 +84,9 @@ occurs. Record where $j$ stops and whether you add $s$ to the results.
 | Shift `s` | Text indices checked | Final `j` | Append `s`? |
 |---|---|---|---|
 | 1 | `1` | 0 | No |
-| 2 | TODO | TODO | TODO |
-| 4 | TODO | TODO | TODO |
-| 5 | TODO | TODO | TODO |
+| 2 | `2, 3` | 1 | No |
+| 4 | `4, 5` | 1 | No |
+| 5 | `5` | 0 | No |
 
 ### 1.2 Implementation
 
