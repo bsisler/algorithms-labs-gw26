@@ -29,7 +29,7 @@ pseudocode, and practice traces. The current sections cover:
 | `lab_checks.py` | Provided automated checks; do not edit |
 
 - [x] Part 1: Trace and implement naive search.
-- [ ] Part 2: Trace, implement, and analyze Rabin–Karp.
+- [x] Part 2: Trace, implement, and analyze Rabin–Karp.
 - [ ] Part 3: Trace the prefix table and matcher, implement KMP, and analyze its running time.
 
 ### Shared conventions
@@ -208,11 +208,15 @@ hash comparisons and character checks.
 
 | Case | Build hashes | Search | Total |
 |---|---|---|---|
-| Best | TODO | TODO | TODO |
-| Worst | TODO | TODO | TODO |
+| Best | O(n) | O(1) | O(n) |
+| Worst | O(n) | O(m) | O(n * m) |
 
 For each case, explain in one sentence how many windows need character checks
 and how many characters are checked in each one.
+
+In the best case, a winow hash is made at each shift in the text, so in total would require n windows hashed, and since each hash is different from the pattern the search just compares the two hases and moves on.
+
+In the worst case, it follows the same as the best case for the build hashes, but since both contain the same string the hash will be the same and the charcters will need to be checked. It will compare against the pattern, so it will check m charcters.
 
 ### Connection: Searching for several patterns
 
