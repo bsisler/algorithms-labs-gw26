@@ -73,7 +73,12 @@ def compute_prefix_function(pattern):
     k = 0
 
     # TODO 3.2A: extend each border, following prefix links on a mismatch
-    raise NotImplementedError("Complete compute_prefix_function")
+    for j in range(1, m):
+        while k > 0 and pattern[k] != pattern[j]:
+            k = pi[k - 1]
+        if pattern[k] == pattern[j]:
+            k = k + 1
+        pi[j] = k
 
     return pi
 
@@ -91,7 +96,14 @@ def kmp_search(text, pattern):
     q = 0
 
     # TODO 3.2B: scan the text with prefix fallbacks and record all matches
-    raise NotImplementedError("Complete kmp_search")
+    for i in range(0, n):
+        while q > 0 and pattern[q] != text[i]:
+            q = pi[q - 1]
+        if pattern[q] == text[i]:
+            q = q + 1
+        if q == m:
+            matches.append(i - m + 1)
+            q = pi[m - 1]
 
     return matches
 
