@@ -174,9 +174,14 @@ At shift `6`, the hash is `7`; all five characters match, so record `6`.
 1. **Move from shift `6` to `7`.** Which digit leaves the window, and which
    digit enters? Substitute them into the rolling-hash formula and calculate
    the new hash.
+
+3 leaves the window and 2 enters the window. `((31415 - 3 * 10000) * 10 + 2) mod 13` = `8` 
+
 2. **Check shift `12`.** Its hash is `7`, so compare the characters. List the
    text and pattern indices checked before stopping. Is this a match or a
    spurious hit?
+
+T at 12 is `67399` and P is `31415`.  It checks the first index `12` before finding a mismatch and stopping. This is a spurious hit.
 
 ### 2.2 Implementation
 

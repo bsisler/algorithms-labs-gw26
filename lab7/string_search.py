@@ -22,6 +22,18 @@ def naive_search(text, pattern):
 
     return matches
 
+def matches_fx (text, pattern, s):
+    """Compares the m characters from left to right and stops at first mismatch"""
+    n, m = len(text), len(pattern)
+    if m > n:
+        return 0;
+    j = 0
+    while (j < m) and (text[s + j] == pattern[j]):
+        j = j + 1
+        if j == m:
+            return 1;
+    return 0;
+
 
 def rabin_karp(text, pattern, d=256, q=101):
     """Return all matching starting indices using a rolling hash.
@@ -38,7 +50,15 @@ def rabin_karp(text, pattern, d=256, q=101):
     t = 0
 
     # TODO 2.2: build the initial hashes, verify hits, and roll to each next window
-    raise NotImplementedError("Complete rabin_karp")
+    for j in range(0, m):
+        p = (d * p + ord(pattern[j])) % q
+        t = (d * t + ord(text[j])) % q
+    for s in range(0, n - m + 1):
+        if p == t:
+            if matches_fx(text, pattern, s):
+                matches.append(s)
+        if s < n - m:
+            t = (d * (t - ord(text[s]) * h) + ord(text[s + m])) % q
 
     return matches
 
