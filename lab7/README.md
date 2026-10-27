@@ -30,7 +30,7 @@ pseudocode, and practice traces. The current sections cover:
 
 - [x] Part 1: Trace and implement naive search.
 - [x] Part 2: Trace, implement, and analyze Rabin–Karp.
-- [ ] Part 3: Trace the prefix table and matcher, implement KMP, and analyze its running time.
+- [x] Part 3: Trace the prefix table and matcher, implement KMP, and analyze its running time.
 
 ### Shared conventions
 
