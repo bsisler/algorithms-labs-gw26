@@ -310,11 +310,13 @@ The first row is worked: `P[2] == P[4]`, so `k` increases to `3`.
 | Index `j` | Starting `k` | Fallbacks | `pi[j]` |
 |---|---|---|---|
 | 4 | 2 | none | 3 |
-| 5 | 3 | TODO | TODO |
-| 6 | 0 | TODO | TODO |
+| 5 | 3 | 3 -> 1  -> 0| 0 |
+| 6 | 0 | none | 1 |
 
 Now trace the matcher at `i = 8`, starting with `q = 6`. Which pattern index
 is compared with `T[8]`? What shift is recorded, and what is `q` afterward?
+
+The pattern index 6 is compared, with a shift of 2 and q becoming 1.
 
 ### 3.2 Implementation
 
@@ -339,12 +341,14 @@ Give tight bounds in terms of $n$ and $m$.
 
 | Case | Build `pi` | Search | Total |
 |---|---|---|---|
-| Best | TODO | TODO | TODO |
-| Worst | TODO | TODO | TODO |
+| Best | O(m) | O(n) | O(m +  n) |
+| Worst | O(m) | O(n) | O(m + n) |
 
 Explain the worst-case bound in a few lines. Across the whole scan, how often
 can `q` increase? How does that limit the number of fallbacks? Use the same
 reasoning for `k` when building `pi`.
+
+In the worst case KMP runs in linear time, during the search q increases when a character matches, so q can only increase at most n times since there are only n text characters. During every fallback q decreases, and q cannot decrease more than it was increases, so the total number of fallbacks over the entire search is n. The same for the prefix table just its max is m so k increases at most m times and each fallback decreases k, creating a total of m.
 
 ---
 
