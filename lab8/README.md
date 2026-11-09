@@ -24,8 +24,8 @@ This lab covers the graph representations and traversals from lecture:
 | `graph_traversals.py` | Complete `bfs`, `reconstruct_path`, and `dfs` |
 | `lab_checks.py` | Provided automated checks; do not edit |
 
-- [ ] Part 2: Trace BFS, implement it, and reconstruct a path.
-- [ ] Part 3: Trace and implement DFS, then compare traversal costs.
+- [x] Part 2: Trace BFS, implement it, and reconstruct a path.
+- [x] Part 3: Trace and implement DFS, then compare traversal costs.
 
 ---
 
@@ -123,11 +123,13 @@ newly assigned parents.
 | Vertex removed | Queue afterward | New parent assignments |
 |---|---|---|
 | 0 | `[1, 2]` | `parent[1] = 0`, `parent[2] = 0` |
-| 1 | TODO | TODO |
-| 2 | TODO | TODO |
-| 3 | TODO | TODO |
+| 1 | `[2, 3, 4]` | `parent[3] = 1`, `parent[4] = 1` |
+| 2 | `[3, 4]` | `None` |
+| 3 | `[4]` | `None` |
 
 Why does processing `2` leave `parent[4]` unchanged? Answer in one sentence.
+
+It remains unchanged because the vertex 4 was already discovered and assigned parent[4] = 1 so when 2 encounters 4 it was already visited previously.
 
 ### 2.2 Implementation
 
@@ -225,9 +227,9 @@ vertex `5`.
 | Vertex | Parent | Discovery time | Finishing time |
 |---|---|---|---|
 | 0 | `None` | 1 | 10 |
-| 3 | TODO | TODO | TODO |
-| 4 | TODO | TODO | TODO |
-| 5 | TODO | TODO | TODO |
+| 3 | 1 | 3 | 8 |
+| 4 | 3 | 4 | 7 |
+| 5 | `None` | 11 | 12 |
 
 ### 3.2 Implementation
 
@@ -248,12 +250,14 @@ a vertex's neighbors requires scanning its entire row.
 
 | Cost | Adjacency list | Adjacency matrix |
 |---|---|---|
-| Store the graph | TODO | TODO |
-| Run BFS | TODO | TODO |
-| Run DFS | TODO | TODO |
+| Store the graph | V + E | V^2 |
+| Run BFS | V + E | V^2 |
+| Run DFS | V + E | V^2 |
 
 In a few sentences, explain how many neighbor entries each traversal checks
 with each representation. Why does a sparse graph benefit from adjacency lists?
+
+For an adjacency list, BFS and DFS visit each vertex once and check each neighbor once. In an undirected graph each edge appears twice so the total work is V + E. For an adjacency matrix, to find the neighbors requires searching an entire row of V entires, and since each vertex requires one row the total work is V^2. A sparse graph has less edges than V^2 so adjacency lists perform better than a matrix. That is because the list only stores the edges that exist, whereas a matrix still needs the space of V^2 and will have many empty slots that will still be checked.
 
 ---
 
