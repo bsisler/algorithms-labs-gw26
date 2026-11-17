@@ -20,24 +20,22 @@ def topological_sort(graph):
     order = []
 
     # TODO 1.2: count incoming edges, process ready vertices, and check for a cycle
-    x = 0
-    while x <= n - 1:
-        for v in graph[x]:
-            indegree[v] = indegree[v] + 1
-        x = x + 1;
-    i = 0
-    while i <= n - 1:
-        for v in graph[i]:
-            if indegree[v] == 0:
-                queue.append(v)
-        i = i + 1    
+    for u in range(n):
+        for v in graph[u]:
+            indegree[v] += 1
+    
+    for u in range(n):
+        if indegree[u] == 0:
+            queue.append(u)
+    
     while queue:
         u = queue.popleft()
         order.append(u)
         for v in graph[u]:
-            indegree[v] = indegree[v] - 1
+            indegree[v] -= 1
             if indegree[v] == 0:
                 queue.append(v)
+    
     if len(order) != n:
         return None
 
@@ -55,7 +53,7 @@ class DisjointSet:
         """Return x's root and compress the path to it."""
         # TODO 2.1A: update each parent on the search path to the root
         if self.parent[x] != x:
-            self.parent[x] = find(self.parent, x)
+            self.parent[x] = self.find(self.parent[x])
         return self.parent[x]
 
     def union(self, x, y):
@@ -64,8 +62,8 @@ class DisjointSet:
         On equal ranks, attach root_y under root_x and increment rank[root_x].
         """
         # TODO 2.1B: find the roots and merge by rank
-        root_x = find(self, x)
-        root_y = find(self, y)
+        root_x = self.find(x)
+        root_y = self.find(y)
         if root_x == root_y:
             return False
         if self.rank[root_x] < self.rank[root_y]:
@@ -92,8 +90,8 @@ def kruskal(n, edges):
 
     # TODO 2.1C: use union to accept edges and stop once a spanning tree is complete
     for (u, v, weight) in sorted_edges:
-        if sets.UNION(u, v):
-            chosen.append(u, v, weight)
+        if sets.union(u, v):
+            chosen.append((u, v, weight))
             total = total + weight
             if len(chosen) == n - 1:
                 break
