@@ -23,8 +23,8 @@ algorithm.
 | `min_priority_queue.py` | Provided priority queue |
 | `lab_checks.py` | Provided automated checks |
 
-- [ ] Part 1: Trace and implement Prim's algorithm.
-- [ ] Part 2: Trace and implement Dijkstra's algorithm, then compare the two.
+- [X] Part 1: Trace and implement Prim's algorithm.
+- [X] Part 2: Trace and implement Dijkstra's algorithm, then compare the two.
 
 Vertices are numbered `0` through `n - 1`. Each entry in `graph[u]` is a
 pair `(v, weight)`. For an undirected edge, both directions appear in the
@@ -117,16 +117,22 @@ using its two endpoint labels.
 
 | Vertex removed | Edge added | `key[D]` | `key[E]` |
 |---|---|---|---|
-| `B` | TODO | TODO | TODO |
-| `C` | TODO | TODO | TODO |
-| `D` | TODO | TODO | TODO |
+| `B` | A-B | 4 | Infinity |
+| `C` | B-C | 4 | 6 |
+| `D` | B-D | 4 | 6 |
 
 1. Which vertex becomes `C`'s parent, and what causes the change? 
 
+B becomes the parent of C. When B is removed the edge B-C is examined with a weight of 1. And since 1 < 3, B-C is cheaper and C's parent becomes B.
 
 2. After removing `E`, what are the tree's four edges and total weight? 
 
+A-B with weight 2
+B-C with weight 1
+B-D with weight 4
+C-E with weight 6
 
+Total weight = 13
 
 ### 1.2 Implementation
 
@@ -199,12 +205,16 @@ after each check, including checks that leave them unchanged.
 
 | Edge checked | Candidate | Distance of `v` | Parent of `v` |
 |---|---|---|---|
-| `B -> C` | TODO | TODO | TODO |
-| `C -> D` | TODO | TODO | TODO |
-| `C -> E` | TODO | TODO | TODO |
-| `D -> E` | TODO | TODO | TODO |
+| `B -> C` | 2 + 1 = 3 | 3 | A |
+| `C -> D` | 3 + 5 = 8 | 6 | B |
+| `C -> E` | 3 + 6 = 9 | 9 | C |
+| `D -> E` | 6 + 7 = 13 | 13 | C |
 
 Give the final distance array and the shortest path from `A` to `E`:
+
+A, B, C, D, E: 0, 2, 3, 6, 9 -> distance = [0, 2, 3, 6, 9]
+
+E <- C <- A so the shortest path is A -> C -> E
 
  **TODO**
 
@@ -223,11 +233,14 @@ undirected graphs, including graphs with unreachable vertices.
    `C`'s parent under each algorithm? What quantity does each algorithm
    minimize? 
 
+For Prim's C's parent is B, for Dijkstra's C's parent is A. Prim minimizes the edge weight between two verticies, and Dijkstra minimizes the distance from the source to each vertex.
 
 2. Consider the directed edges `S -> A: 2`, `S -> B: 5`, and `B -> A: -4`.
    Starting from `S`, which distance does Dijkstra finalize too early?
    Give the actual shortest distance and explain why the negative edge
    causes a problem.
+
+A is removed first because 2 < 5, so the distance is 2. But the shortest path is S -> B -> A with a distance of 1 (5 + -4 = 1). The negative edge is a problem because it can decrease the weight of an edge.
 
 
 3. Let `V` and `E` be the numbers of vertices and edges. For the provided
@@ -237,6 +250,23 @@ undirected graphs, including graphs with unreachable vertices.
    auxiliary space bounds. Exclude the input graph from space. What is
    the time bound if finding the minimum instead scans an unsorted array
    of vertices?
+
+Prim:
+Building the priority queue: O(V)
+Extract-min: Once per vertex -> V removales -> O(V log V)
+Each edge can cause at most one successful decrease-key: O(E log V)
+Total time: O((V + E)log V)
+Auxilary Space: Key -> O(V), Parent -> O(V), Priority Queue -> O(V)
+Total: O(V)
+
+Dijkstra:
+Building the priority queue: O(V)
+Extract-min: V removals -> O(V / log V)
+Up to E decrease-key: O(E / log V)
+Total time: O((V + E)log V)
+Auxiliary Space: Distance -> O(V), Parent -> O(V), Priority Queue -> O(V)
+
+If an unsorted array is used finding the min would cost O(V) each time, V removals -> O(V^2). So both would run in O(V^2 + E) or O(V^2)
 
 
 ---
